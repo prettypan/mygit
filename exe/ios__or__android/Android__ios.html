@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+	</head>
+
+	<body>
+		<a href="http://www.weimeijieyuan.com" id="openApp">点击打开App</a>
+		<script src="../jquery-1.11.3.js"></script>
+		<script type="text/javascript">
+			if(navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1) {
+				alert("安卓");
+				// 通过iframe的方式试图打开APP，如果能正常打开，会直接切换到APP，并自动阻止a标签的默认行为
+				// 否则打开a标签的href链接
+				var isInstalled;
+				//下面是安卓端APP接口调用的地址，自己根据情况去修改
+				var ifrSrc = 'shareTest://data/';
+				var ifr = document.createElement('iframe');
+				ifr.src = ifrSrc;
+				ifr.style.display = 'none';
+				ifr.onload = function() {
+					// alert('Is installed.');
+					isInstalled = true;
+					alert(isInstalled);
+					document.getElementById('openApp').click();
+				};
+				ifr.onerror = function() {
+					// alert('May be not installed.');
+					isInstalled = false;
+					alert(isInstalled);
+				}
+				document.body.appendChild(ifr);
+				setTimeout(function() {
+					document.body.removeChild(ifr);
+				}, 1000);
+			}
+			//ios判断
+			if(navigator.userAgent.indexOf('iPhone') > -1) {
+				alert("苹果");
+				//Animation://com.yz.animation
+				var isInstalled;
+				//var gz = '{"comName":"${com.short_name}","comID":"${com.id}","comPhoneNum":"${com.phone_num}","type":"0"}';
+				//var jsongz =JSON.parse(gz);
+
+				//下面是IOS调用的地址，自己根据情况去修改
+				var ifrSrc = 'Animation://?comName=${com.short_name}&comID=${com.id}&comPhoneNum=${com.phone_num}&type=0';
+				var ifr = document.createElement('iframe');
+				ifr.src = ifrSrc;
+				ifr.style.display = 'none';
+				ifr.onload = function() {
+					// alert('Is installed.');
+					isInstalled = true;
+					alert(isInstalled);
+					document.getElementById('openApp').click();
+				};
+				ifr.onerror = function() {
+					// alert('May be not installed.');
+					isInstalled = false;
+					alert(isInstalled);
+				}
+				document.body.appendChild(ifr);
+//				setTimeout(function() {
+//					document.body.removeChild(ifr);
+//				}, 1000);
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			*{
+				margin:0;
+				padding:0;
+				box-sizing: border-box;
+			}
+			
+			#box{
+				position:absolute;
+				top:0;left:0;bottom:0;right:0;
+				margin:auto auto;
+				width:630px;
+				height:420px;
+				display: flex;
+				
+				flex-flow: wrap;
+				background:#e0f1ff;
+			}
+			#box span{
+				background:#ccc;
+				width:200px;
+				height:200px;
+				margin: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<span id="test"></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		<script>
+			
+			//定义获取元素样式函数
+			function getStyle(obj,name){
+				var value=0;
+				if(window.getComputedStyle){
+					value=window.getComputedStyle(obj)[name];
+				}else{
+					value=obj.currentStyle[name];
+				}
+				if(value=="auto"){
+					value=0;
+				}
+				return value;
+				
+				//简写为：return (obj.currentStyle||getComputedStyle(obj,false))[name];
+			}
+			
+			//定义运动函数
+			function move(el,obj,func){
+				clearInterval(el.t1);
+				el.t1=setInterval(function(){
+					var flag=true;//动画完成标志，预设完成
+					for(var attr in obj){
+						//属性名称	attr
+						//属性目标值	obj[attr]
+						
+						//获取元素的初始状态
+						var current=parseInt(getStyle(el,attr));
+						if(attr=="opacity"){
+							current=parseFloat(getStyle(el,attr));
+							if(current<=1){
+								current=current*100;
+							}
+						}
+						
+						//定义速度
+						var speed=(obj[attr]-current)/30;  
+						speed=speed>0?Math.ceil(speed):Math.floor(speed);
+						//如果当前值等于目标值，设置标志为true
+						if(current==obj[attr]){
+							flag=true;
+						}else{
+							flag=false;
+							//
+							current+=speed;
+							if(attr=="opacity"){
+								el.style.opacity=current/100;
+								el.style.filter="alpha(opacity="+current+")";
+							}else{
+								el.style[attr]=current +"px";
+							}
+						}
+						
+					}
+					//样式属性达到目标值后停止动画
+					if(flag){
+						clearInterval(el.t1);
+						//
+						if(func){
+							func();
+						}
+					}
+					
+					
+					
+				},10)
+			}
+			
+			
+//			var span=document.getElementsByTagName('span');
+//			for(var i=0;i<span.length;i++){
+//				span[i].onmouseenter=function(){
+//					
+//				}
+//			}
+			
+			var test=document.getElementById('box');
+			test.onclick=function(){
+				alert(1)
+			}
+			
+			var isSupported=document.implementation.hasFeature('MouseEvent','3.0')
+			
+//			EventUtil.addHandler(test,'mouseover',function(event){
+//				event=EventUtil.getEvent(event);
+//			})
+//			
+//			test.onmouseenter=function(event){
+//				event=event||window.event;
+//				var x0=event.clientX;
+//				var y0=event.clientY;
+//				judge=setTimeout(function(){
+//					x1=event.clientX;
+//					y1=event.clientY;
+//				},10)
+//				if(x1-x0>0){
+//					alert('right')
+//				}
+//			}
+			
+			
+			
+		</script>
+		
+		
+		
+		
+		
+	</body>
+</html>

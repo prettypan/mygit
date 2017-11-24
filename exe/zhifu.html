@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta id="view" name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<title>支付中心</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function setRem() {
+				var oHtml = document.querySelector('html');
+				var width = oHtml.getBoundingClientRect().width;
+				if(width > 680) width = 680;
+				oHtml.style.fontSize = width / 16 + 'px';
+			}
+			window.onload = function() {
+					setRem();
+				}
+		</script>
+		<style type="text/css">
+			html,body{width: 100%;}
+			p,html,body{margin: 0;}
+			body{text-align: center;}
+			#logo{height: 30vh;width: 100%;line-height: 30vh;opacity: 0.8;color: black;background: url(weixinpay.png) no-repeat;
+				background-position: 28% 50%;
+				background-size: 20%;
+			}
+			#logo span{
+				margin-left: 3.5rem;font-size: 1.5rem;
+			}
+			p{margin-top: 1.5rem;}
+			#btn{width:8.9rem;height:2.1rem;border-radius: 0.5rem;background-color:#41af35;border:0px #FE6714 solid;cursor: pointer;color:white;font-size:1rem;margin-top: 0.7rem;}
+		</style>
+   <div id="logo">
+   	 <span>微信支付</span>
+   	 <img src=""/>
+   </div>
+    <p>您预订了金陵豪华房(大床)1天</p><br/>
+    <font color="#9ACD32" style="text-align: center;"><b>该笔订单支付金额为<span style="color:#f00;font-size:0.8rem"><?php echo $tprice; ?></span>钱</b></font><br/><br/>
+	<div align="center">
+		<button id="btn" style="" type="button" onclick="callpay()" >确认支付</button>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<a href="bg.jpg" download="ag">点击下载图片</a>
+		<script>
+			var arr2 = new Array();
+			arr2 = [['a'],['b','d'],['c'],['d','p']];
+			var arr1 = ['x','y','a'];
+			var s = 't'
+			for(var i=0;i<arr2.length;i++){
+				for(var m=0;m<arr2[i].length;m++){
+					for(var n=0;n<arr1.length;n++){
+						if(arr2[i][m] == arr1[n]){
+							arr1.splice(n)
+						}
+					}
+				}
+			}
+			arr2 = arr2.concat(arr1)
+			document.write(arr2);
+//			alert(arr2);
+			console.log(arr2)
+		</script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	</head>
+
+	<body>
+		<h2><a id="applink1" onclick="openapp()">打开app<!--Open scheme(mtcmtc) defined in iPhone with parameters --></a></h2>
+		<!--<p><i>Only works on iPhone!</i></p>-->
+		<script type="text/javascript">
+			var timer = null;
+
+			function openapp() {
+				var url = {
+					open: 'iosweimeijieyuanapp://',
+					down: 'http://www.weimeijieyuan.com'
+				};
+				var iframe = document.createElement('iframe');
+				var body = document.body;
+				iframe.style.cssText = 'display:none;width=0;height=0';
+				var timer = null;
+				body.appendChild(iframe);
+				iframe.src = url.open;
+//				timer = setTimeout(function() {
+//					wondow.location.href = url.down;
+//				}, 500);
+
+			}
+			$(document).on('visibilitychange webkitvisibilitychange', function() {
+				var tag = document.hidden || document.webkitHidden;
+				if(tag) {
+					clearTimeout(timer);
+				}
+			})
+
+			$(window).on('pagehide', function() {
+				clearTimeout(timer);
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>二级菜单</title>
+		<style>
+			ul{
+				list-style: none;
+				padding: 0;
+			}
+			#box>li{
+				float: left;
+				padding: 10px 20px;
+				margin: 1px;
+				background: #4a4;
+				border-radius: 5px;
+				position: relative;
+			}
+			#box>li:hover .list{
+				display: block;
+				z-index: 10;
+			}
+			#box>li .list {
+				background: #AA4444;
+				position: absolute;
+				left: -42px;
+				top:40px;
+				display: none;
+				opacity: .8;
+				padding: 15px;
+				width: 150px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul id="box">
+			<li>栏目一</li>
+			<li>栏目二
+				<ul class="list">
+					<li>我是大表哥</li>
+					<li>我是大表哥</li>
+					<li>我是大表哥</li>
+					<li>我是大表哥</li>
+					<li>我是大表哥</li>
+					<li>我是大表哥</li>
+					<li>我是大表哥</li>
+					<li>我是大表哥</li>
+				</ul>
+			</li>
+			<li>栏目三</li>
+			<li>栏目四</li>
+			<li>栏目五</li>
+			<li>栏目六</li>
+			<li>栏目七</li>
+			
+		</ul>
+	</body>
+</html>

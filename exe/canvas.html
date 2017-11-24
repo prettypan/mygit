@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				background: black;
+			}
+			#myCanvas{
+				background: white;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas" width="600" height="600"></canvas>
+	</body>
+	<script type="text/javascript">
+	
+		 var canvasID = document.getElementById("myCanvas");
+		 
+         var canvas = canvasID.getContext("2d");
+         
+         function drawArc(id){
+         	
+         	canvas.beginPath();
+         	canvas.lineWidth = 5;
+         	canvas.fillStyle = "#00f";
+         	canvas.strokeStyle = "#0f0";
+         	canvas.arc(100,100,50,0,2*Math.PI,false);
+         	canvas.fill();
+         	canvas.stroke();
+         	canvas.closePath();
+         }
+         
+         drawArc("myCanvas")
+         
+	</script>
+	
+<script type="text/javascript">
+	
+		 var canvasID = document.getElementById("myCanvas");
+		 
+         var canvas = canvasID.getContext("2d");
+         
+         function drawArc(id){
+         	
+         	canvas.beginPath();
+         	canvas.lineWidth = 5;
+         	canvas.fillStyle = "#00f";
+         	canvas.strokeStyle = "#0f0";
+         	canvas.arc(300,100,50,0,2*Math.PI,false);
+         	canvas.fill();
+         	canvas.stroke();
+         	canvas.closePath();
+         	
+         }
+         
+         drawArc("myCanvas")
+         
+	</script>
+	
+	
+	<script>
+
+              var canvasID = document.getElementById("myCanvas");
+
+              var canvas = canvasID.getContext("2d");
+
+              function drawLine(id)
+
+              {
+
+                     canvas.save();
+
+                     canvas.translate(100,100);
+
+                     canvas.lineWidth= 10;
+
+                     canvas.strokeStyle = "#999";
+
+                     canvas.beginPath();
+
+                     canvas.moveTo(0,0);
+
+                     canvas.lineTo(200,0);
+
+                     canvas.closePath();
+
+                     canvas.stroke();
+
+                     canvas.restore();
+
+              }
+
+              drawLine("myCanvas");
+
+</script>
+
+
+<script>
+
+        var canvasID = document.getElementById("myCanvas");
+
+        var canvas = canvasID.getContext("2d");
+
+        function drawSanjiao(id)
+
+        {
+
+               canvas.save();
+
+               canvas.translate(250,40);
+
+               canvas.lineWidth = 3;
+
+               canvas.strokeStyle = "#0f0";
+
+               canvas.beginPath();
+
+               canvas.moveTo(0,0);
+
+               canvas.lineTo(0,120);
+
+               canvas.lineTo(100,60);
+
+               canvas.lineTo(0,0);
+
+               canvas.stroke();
+
+               canvas.closePath();
+
+               canvas.restore();
+
+        }
+
+        drawSanjiao("myCanvas");
+
+</script>
+<script>
+
+        var canvasID = document.getElementById("myCanvas");
+
+        var canvas = canvasID.getContext("2d");
+
+function drawText(id)
+
+        {
+
+               canvas.save();
+
+               canvas.translate(100,300);
+
+               canvas.strokeStyle="#09";
+
+               canvas.fillStyle = "#879";
+
+               canvas.font = "normal 90px 微软雅黑";
+
+               canvas.strokeText("你好 陌生人", 0, 0);
+
+               canvas.fillText("你好 陌生人", 0, 0);
+
+               canvas.restore();
+
+        }
+
+        drawText("myCanvas");
+
+</script>
+</html>

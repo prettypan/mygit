@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<script>
+			function setRem() {
+				var oHtml = document.querySelector('html');
+				var width = oHtml.getBoundingClientRect().width;
+				//				if(width > 680) width = 680;
+				oHtml.style.fontSize = width / 16 + 'px';
+			}
+			window.onload = function() {
+				setRem();
+			}
+		</script>
+		<title></title>
+		<style type="text/css">
+			body {
+				/*text-align: center;*/
+				background: rgba(117, 43, 43, 0.66);
+				overflow: hidden;
+			}
+			
+			* {
+				/*width: 100%;*/
+				box-sizing: border-box;
+				margin: 0;
+			}
+			
+			ul,
+			li,
+			ol {
+				list-style: none;
+				padding: 0;
+			}
+			
+			.canvasBox {
+				position: relative;
+			}
+			
+			#myCanvas {
+				background: #FFF;
+				z-index: 10000;
+				/*cursor: pointer;*/
+				/*margin: 0 auto;*/
+			}
+			
+			#menu {
+				width: 1rem;
+				height: 1rem;
+				position: absolute;
+				right: 1%;
+				bottom: 3%;
+			}
+			
+			.menulistBox {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.menulistBox div {
+				width: 1rem;
+				height: 1rem;
+				text-align: center;
+				line-height: 1rem;
+				font-size: 0.6rem;
+				border-radius:50% ;
+				overflow: hidden;
+				background: #10AEFF;
+				color: #fff;
+				position: absolute;
+				left: 0;
+				top: 0;
+				transition: left 0.2s linear, top 0.2s linear;
+				-webkit-transition: left 0.2s linear, top 0.2s linear;
+				-o-transition: left 0.2s linear, top 0.2s linear;
+				-moz-transition: left 0.2s linear, top 0.2s linear;
+			}
+			
+			#home {
+				background: #000000;
+				border-radius: 50%;
+				position: absolute;
+				right: 2%;
+				bottom: 3%;
+				z-index: 10;
+			}
+			
+			span {
+				width: 5rem;
+				height: 1.5rem;
+				line-height: 1.5rem;
+				display: block;
+				background: #04BE02;
+				color: #fff;
+				margin: 0 auto;
+				border-radius: 0.3rem;
+				font-size: 0.6rem;
+			}
+			
+			.btn {
+				text-align: center;
+				margin: 0.5rem 0;
+			}
+			
+			ul {
+				display: flex;
+				display: -webkit-flex;
+				justify-content: space-around;
+				margin: 0;
+				/*margin-top: 0.5rem;*/
+			}
+			.colorbox{
+				display: none;
+			}
+			#colorbox li {
+				width: 1.2rem;
+				height: 1.2rem;
+				background: #fff;
+				border-radius: 50%;
+			}
+			.menulist li{
+				width: 100%;
+				height: 1rem;
+				background: #fff;
+				/*border-radius: 50%;*/
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="canvasBox">
+			<canvas id="myCanvas" width="414" height="400"></canvas>
+			<div id="menu">
+				<div class="menulistBox" >
+					<div class="home" id="home"></div>
+					<div class="menulist" id="menulist">
+						<ul>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+						</ul>
+					</div>
+					<div class="menulist">嘿</div>
+					<div class="menulist">哈</div>
+					<div class="menulist">吼</div>
+				</div>
+			</div>
+		</div>
+		<div class="btn"><span id="clear">清空</span></div>
+		<div id="colorbox" class="colorbox">
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var mycanvas = document.getElementById('myCanvas');
+
+			var clr = document.getElementById('clear');
+			var context = mycanvas.getContext('2d');
+			var huaban = {
+				linecolor: ['red', '#ff5722', 'yellow', 'green', 'blue', 'pink','purple', 'black', 'white'], //色板
+				color: 'black', //起始颜色
+				linewidth: 4, //初试画笔宽度
+				last: null, //手指上一个位置
+				Press: false, //是否按下
+				homeclick: true,
+				colordis:false,
+				drawstat: function(event) { //作图
+					event.preventDefault();
+
+					if(!this.Press) return;
+					var xy = this.Position(event);
+					if(this.last != null) {
+						context.lineWidth = this.linewidth;
+						context.strokeStyle = this.color;
+						context.lineCap = 'round';
+						context.beginPath();
+						context.moveTo(this.last.x, this.last.y);
+						context.lineTo(xy.x, xy.y);
+						context.stroke();
+					}
+					this.last = xy;
+				},
+				menuselect: function() { //颜色及笔宽选择
+					var menu = document.getElementById('menu');
+					var menulist = document.getElementsByClassName('menulist');
+					var home = document.getElementById('home');
+					var colorBox = document.getElementById('colorbox');
+						
+					menulist[0].addEventListener('click',function(){
+						if(!this.colordis){
+							colorBox.classList.remove('colorbox');
+							this.colordis = true;
+						}else{
+							colorBox.classList.add('colorbox');
+							this.colordis = false;
+						}
+					})
+					
+					home.addEventListener('click', function() {
+						console.log(this.homeclick);
+						
+						
+						
+						
+						
+						if(!this.homeclick){
+							menulist[0].style.left = -2.9 + 'rem';
+							menulist[0].style.top = -0.2 + 'rem';
+
+							setTimeout(function() {
+								menulist[1].style.left = -2.1 + 'rem';
+								menulist[1].style.top = -1.2 + 'rem';
+								setTimeout(function() {
+									menulist[2].style.left = -3.1 + (2 * 1) + 'rem';
+									menulist[2].style.top = -(2 * 1) + 'rem';
+									setTimeout(function() {
+										menulist[3].style.left = -3 + (3 * 1) + 'rem';
+										menulist[3].style.top = -(2.5 * 1) + 'rem';
+
+									}, 100)
+
+								}, 100)
+
+							}, 100)
+							this.homeclick = true;
+						}else{
+							menulist[0].style.left = 0 + 'rem';
+							menulist[0].style.top = 0 + 'rem';
+							setTimeout(function() {
+								menulist[1].style.left = 0 + 'rem';
+								menulist[1].style.top = 0+ 'rem';
+								setTimeout(function() {
+									menulist[2].style.left = 0 + 'rem';
+									menulist[2].style.top = 0 + 'rem';
+									setTimeout(function() {
+										menulist[3].style.left = 0 + 'rem';
+										menulist[3].style.top = 0 + 'rem';
+
+									}, 100)
+
+								}, 100)
+
+							}, 100)
+							this.homeclick = false;
+						}
+
+					})
+				},
+				dye:function(ele1,ele2){
+					var colorB = document.getElementById(ele1);
+					var oli = colorB.getElementsByTagName(ele2);
+					//取色
+					for(var i = 0; i < oli.length; i++) {
+						//				console.log(huaban.linecolor[i])
+						oli[i].style.backgroundColor = huaban.linecolor[i];
+						//				oli.setAttribute('color')
+						oli[i].addEventListener('click', function() {
+//							console.log(this.style.backgroundColor);
+							if(this.style.backgroundColor == 'white') { //白色加粗
+								huaban.linewidth = 15
+							} else {
+								huaban.linewidth = 4
+							}
+							huaban.color = this.style.backgroundColor + ''
+						})
+					}
+				},
+				enddraw: function(event) {
+					this.Press = false;
+					event.preventDefault();
+					this.last = null;
+				},
+				Position: function(event) {
+					var x, y;
+					if(this.isTouch(event)) {
+						x = event.touches[0].pageX;
+						y = event.touches[0].pageY;
+					} else {
+						x = event.offsetX + event.target.offsetLeft;
+						y = event.offsetY + event.target.offsetTop;
+					}
+					return {
+						x: x,
+						y: y
+					};
+				},
+				isTouch: function(event) {
+					var type = event.type;
+					if(type.indexOf('touch') >= 0) {
+						return true;
+					} else {
+						return false;
+					}
+				},
+				clearall: function() {
+					context.clearRect(0, 0, 414, 400);
+				},
+				use: function() {
+
+					huaban.dye('colorbox','li');
+					huaban.dye('menulist','li');
+					//初始化
+					huaban.menuselect();
+					
+					//检测是否滑动
+					mycanvas.addEventListener('touchstart', function(event) {
+						huaban.Press = true;
+						//						console.log(0)
+					});
+					//开始作图
+					mycanvas.addEventListener('touchmove', function(event) {
+						huaban.drawstat(event);
+					})
+					//清空画布
+					clr.addEventListener('touchstart', function() {
+						//				console.log((0))
+						huaban.clearall();
+					});
+					//停止作图
+					mycanvas.addEventListener('touchend', function(event) {
+						huaban.enddraw(event)
+					})
+				}
+			}
+			huaban.use();
+		</script>
+	</body>
+
+</html>

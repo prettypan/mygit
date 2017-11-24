@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+	</head>
+	<body>
+		<a id="downloadButton" href="iosweimeijieyuanapp://">打开/下载唯美结缘</a>
+		<a href="history.html">下一页</a>
+	</body>
+	<!-- 以下为openinstall集成代码 -->
+  <!-- 强烈建议直接引用下面的cdn加速链接，以得到最及时的更新，我们将持续跟踪各种主流浏览器
+        的变化，提供最好的服务；不推荐将此js文件下载到自己的服务器-->
+  <script type="text/javascript" src="//res.cdn.openinstall.io/openinstall.js"></script>
+  <script type="text/javascript">
+  //初始化
+  /*web页面向app传递的json数据(json string/js Object)，应用被拉起或是首次安装时，通过相
+    应的android/ios api可以获取此数据*/
+  var data={'testKey':'testValue'};
+  var m = new OpenInstall({
+      /*appKey必选参数，openinstall为每个应用分配的ID*/
+      appKey : 'wcacud'
+  },data);
+  //用法1：如app已安装，进入网页立即拉起app；用户点击某个按钮时再开始安装app
+  /*通过scheme拉起app(如果已在openinstall平台开启scheme启动功能)*/
+  m.schemeWakeup();
+  /*用户点击某个按钮时，安装app*/
+  document.getElementById('downloadButton').onclick=function(){
+      m.install();
+  }
+  //用法2：用户点击某个按钮拉起app，等待设定时间后app尚未拉起，再安装app
+  /*用户点击某个按钮时，安装app*/
+  //document.getElementById('downloadButton').onclick=function(){
+  //   //500毫秒后app尚未拉起，将安装app，可自定义时间
+  //   m.wakeupOrInstall({timeout:500});
+  //}
+  </script>
+</html>

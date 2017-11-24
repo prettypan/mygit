@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>五子棋</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			body{
+				background: #652f2f;
+			}
+			
+			.box {
+				display: -webkit-flex;
+				display: flex;
+				list-style: none;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: space-between;
+			}
+			
+			li {
+				background: #a2491e;
+				height: 1rem;
+				width: 1rem;
+				border-radius: 50%;
+				margin-top: 1px;
+			}
+			
+			.reset {
+				height: 3rem;
+				text-align: center;
+				line-height: 3rem;
+			}
+			
+			#btn {
+				width: 4rem;
+				height: 2rem;
+				line-height: 2rem;
+				font-size: 0.7rem;
+				font-family: 微软雅黑;
+				background: #d05414;
+				border: 0;
+				color: white;
+			}
+			
+			#back {
+				height: 1rem;
+				width: 2rem;
+				margin-left: 1rem;
+				background: #ad2323;
+				color: white;
+			}
+			
+			.white {
+				background: white;
+			}
+			
+			.black {
+				background: black;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box">
+			<div class="reset">
+				<button id="btn">重新开始</button>
+				<button id="back">悔棋</button>
+			</div>
+		</div>
+	</body>
+	<script>
+		function setRem() {
+			var oHtml = document.querySelector('html');
+			var width = oHtml.getBoundingClientRect().width;
+			if(width > 680) width = 680;
+			oHtml.style.fontSize = width / 16 + 'px';
+		}
+		window.onload = function() {
+			setRem();
+		}
+	</script>
+	<script>
+		var row = 14,
+			col = 14,
+			pre;
+		var box = document.getElementById('box');
+		var back = document.getElementById('back');
+		/******************创建棋盘*************************/
+		for(var n = 0; n < row; n++) {
+			var ul = document.createElement('ul');
+			var column_i=0;
+			ul.setAttribute('Row', n + 1);
+			ul.classList.add('box');
+			for(var i = col * n; i < col * (n + 1); i++) {
+				var li = document.createElement('li');
+				column_i++
+				li.setAttribute('state', '0');
+				li.setAttribute('code', i + 1);
+				li.setAttribute('column',column_i)
+				ul.appendChild(li);
+			}
+			
+			box.appendChild(ul)
+		}
+		var sq = document.querySelectorAll('li');
+		var btn = document.getElementById('btn');
+		
+		/*********重新开始***********/
+		btn.addEventListener('touchstart', function() {
+			
+			for(var m = 0; m < sq.length; m++) {
+				sq[m].setAttribute('state', '0');
+				sq[m].classList.remove('white');
+				sq[m].classList.remove('black');
+			}
+		})
+
+		/*****************落子并且判定**********************/
+		for(var m = 0; m < sq.length; m++) {
+			sq[m].addEventListener("touchstart", function() {
+				var n1 = n2 = n3 = n4 = n5 = n6 = n7 = n8 = 1;
+				pre = this.getAttribute('code') - 1;
+				if(this.getAttribute('state') == 0) {
+					var t = 0;//根据剩下的未落子格子数判定落下的是白子还是黑子
+					for(var m = 0; m < sq.length; m++) {
+						if(sq[m].getAttribute('state') == 0) {
+							t++;
+						}
+					}
+					
+					/**********************白子***************/
+					if(t % 2 == 0) {
+						this.setAttribute('state', '1');
+						this.classList.add('white');
+						var code = this.getAttribute('code');
+						//						console.log(code)
+						var bg = this.getAttribute('state');
+						//						console.log(bg);
+						var colu = this.getAttribute('column'); 
+						
+						var Row = this.parentNode.getAttribute('Row');
+						//						console.log(Row);
+						//console.log(col)
+						setTimeout(function(){
+							checkwin();
+						},200);
+						
+
+					}
+					else {
+						/***********************黑子***************/
+						this.setAttribute('state', '2');
+
+						this.classList.add('black');
+						var code = this.getAttribute('code');
+						//						console.log(code)
+						var bg = this.getAttribute('state');
+						//						console.log(bg);
+						var colu = this.getAttribute('column');
+						
+						var Row = this.parentNode.getAttribute('Row');
+						//						console.log(Row);
+						//						console.log(col)
+						setTimeout(function(){
+							checkwin();
+						},200);
+					}
+				}
+				/********悔棋***************/
+				back.addEventListener('touchstart', function() {
+					sq[pre].setAttribute('state', '0');
+					sq[pre].classList.remove('white');
+					sq[pre].classList.remove('black');
+				})
+
+				function checkwin() {
+					var desc
+					if(bg == 1) {
+						desc = "白方获胜"
+					} else if(bg == 2) {
+						desc = "黑方获胜"
+					}
+					/********左右方向*******/
+					for(var i = code; i <= (col * Row); i++) { //向右五连珠
+						if(i >= col * row) {
+							break;
+						}
+						if(sq[i].getAttribute('state') == bg) {
+							n1++;
+							if(n1 >= 5) {
+								alert(desc)
+								return;
+							}
+						} else {
+							break;
+						}
+					}
+					for(var i = (code - 2); i > (col * (Row - 1)); i--) { //向左五连珠
+						if(sq[i].getAttribute('state') == bg) {
+							n2++;
+							//								console.log(n2);
+							if(n2 >= 5 || n1 + n2 >= 6) {
+								alert(desc)
+								return
+							}
+						} else {
+							break;
+						}
+
+					}
+					
+					/********上下方向*******/
+					for(var i = code - 1 - col; i > 0; i = i - col) { //向上五连珠
+						//							console.log(sq[i].getAttribute('state'));
+						if(sq[i].getAttribute('state') == bg) {
+							n3++;
+							//								console.log(n3);
+							if(n3 >= 5) {
+								alert(desc)
+								return
+							}
+						} else {
+							break;
+						}
+					}
+					for(var i = code - 1 + col; i <= col * row; i = i + col) { //向下五连珠
+						//							console.log(code)
+						//							console.log(sq[i].getAttribute('state'));
+						if(i>=col*row){
+							break;
+						}
+						if(sq[i].getAttribute('state') == bg) {
+							n4++;
+							//								console.log(n4);
+							if(n4 >= 5 || (n3 + n4 >= 6)) {
+								alert(desc)
+								return
+							}
+						} else {
+							break;
+						}
+					}
+					
+					/********π/4到5π/4方向*******/
+					
+					for(var i = code - 2 + col; i <= col * row - 1; i = i + col - 1) { //向左下五连珠
+						//							console.log(code)
+						//						console.log(sq[i].getAttribute('state'));
+						if(i > col * row) {
+							break;
+						}
+						
+						if(sq[i].getAttribute('state') == bg) {
+							
+							if(sq[i].getAttribute('column') - colu>=5 ||colu  - sq[i].getAttribute('column')>=5){
+								break
+							}
+							
+							n5++;
+							//							console.log(n5);
+							if(n5 >= 5) {
+								alert(desc)
+								return
+							}
+						} else {
+							break;
+						}
+					}
+
+					for(var i = parseInt(code) - col; i > 0; i = i - col + 1) { //向右上五连珠
+						//							console.log(sq[i].getAttribute('state'));
+						if(sq[i].getAttribute('state') == bg) {
+							if(sq[i].getAttribute('column') - colu>=5 ||colu  - sq[i].getAttribute('column')>=5){
+								break
+							}
+							n6++;
+							//								console.log(n6);
+							if(n6 >= 5 || (n5 + n6) >= 6) {
+								alert(desc)
+								return
+							}
+						}else {
+							break;
+						}
+					}
+
+					/********3π/4到7π/4方向*******/
+					for(var i = parseInt(code) + col; i <= col * row; i = i + col + 1) { //向右下五连珠
+						//							console.log(i)
+						//						console.log(sq[i].getAttribute('state'));
+						if(i >= col * row) {
+							break;
+						}
+						if(sq[i].getAttribute('state') == bg) {
+							
+							if(sq[i].getAttribute('column') - colu>=5 ||colu  - sq[i].getAttribute('column')>=5){
+								break
+							}
+							
+							n7++;
+							//							console.log(n7);
+							if(n7 >= 5) {
+								alert(desc)
+								return
+							}
+						} else {
+							break;
+						}
+					}
+					for(var i = parseInt(code) - col - 2; i >= 0; i = i - col - 1) { //向左上五连珠
+						//						console.log(sq[i])
+						//						console.log(sq[i].getAttribute('state'));
+						if(sq[i].getAttribute('state') == bg) {
+							if(sq[i].getAttribute('column') - colu>=5 ||colu  - sq[i].getAttribute('column')>=5){
+								break
+							}
+							n8++;
+							//								console.log(n8);
+							if(n8 >= 5 || (n7 + n8 >= 6)) {
+								alert(desc)
+								return
+							}
+						} else {
+							break;
+						}
+					}
+				}
+			})
+		}
+	</script>
+
+</html>

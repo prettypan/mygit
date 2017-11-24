@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			var arr1 = [
+		        {id:1,name:'a'},
+		        {id:2,name:'abc'},
+		        {id:3,name:'abbb'}, 
+		        {id:4,name:'abxxx'}, 
+		        {id:5,name:'xyz'},
+		        {id:6,name:'abcdef'},
+		        {id:7,name:'abzzzz'}];
+		    var arr2 = [
+		        {id:1,name:'a'},
+		        {id:5,name:'xyz'},
+		        {id:7,name:'abzzzz'}];
+		        
+		        for(var i = 0 ; i < arr1.length ; i++){
+			        for(var j = 0 ; j < arr2.length ; j++){
+			        	if(arr1[i].id == arr2[j].id){
+			        		arr1.splice(i,1);
+			        	}
+			        }
+		        }
+		        console.log(arr1);
+		        var big = Number.MAX_VALUE;
+				alert(big);
+//		        var result = confirm("你确定");
+//		        alert(result);
+
+				var  a = " + '55555555555555555555555555555555555' + ";
+//		        var  str = 
+		        alert(str)
+//		        alert(typeof(parseInt(str)))
+		</script>
+	</body>
+</html>

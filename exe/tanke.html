@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				box-sizing: border-box;
+			}
+			html,body,#box{
+				height: 100%;
+				width: 100%;
+				overflow: hidden;
+				
+			}
+			#box{
+				/*background: url(bg.jpg) no-repeat;
+				background-size: cover;*/
+				/*perspective: 1000px;*/
+				/*transform: rotateY(30deg);*/
+				border: 50px solid #482779;
+				position: relative;
+			}
+			#btn{
+				width: 44px;
+				height: 44px;/*48px;*/
+				background: url(tt.png) no-repeat;
+				background-size: cover;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				/*transform-origin: 50% 50%;*/
+				/*transition:rotateZ 1s linear;*/
+				/*-webkit-transition:rotateZ 1s linear;*/
+				/*opacity: 1;*/
+			}
+			.pot{
+				position: absolute;
+				border-radius: 50%;
+				z-index: -1;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div id="btn">
+				
+			</div>
+		</div>
+		
+		<script>
+//			prompt("12");
+			var speed = 22;//parseInt(prompt("请设置速度"));
+//			console.log(speed)
+			var btn = document.getElementById('btn');
+			var box = document.getElementById('box');
+
+			var style = window.getComputedStyle ? window.getComputedStyle(btn) : btn.currentStyle;
+			var y = parseInt(style.top);
+			var y2 = parseInt(box.clientHeight);
+			
+			
+			var x = parseInt(style.left);
+			
+			var x2 = x;
+			
+			
+			document.onkeydown = function(event){
+			event = event || window.event;
+
+			switch(event.keyCode){
+				//向上
+				case 38:
+//				adddiv()
+//				console.log(style.left);
+//				console.log(style.top);
+					if(y<= 44){
+						btn.style.top = 0;
+						y = 0;
+						break;
+					}
+					y -= speed;
+					
+					btn.style.top = y + "px";
+					btn.style.transform = "rotateZ(0)";
+					
+					break;
+			//向下
+			case 40:
+//			adddiv()
+					if(y>= y2-44){
+						btn.style.top = y2-44 +"px";
+						y = y2-44;
+						break;
+					}
+				y += speed;
+				btn.style.top = y + "px";
+//				console.log(btn.style.bottom)
+				btn.style.transform = "rotateZ(180deg)";
+				if(btn.style.bottom<= 0 + "px"){
+					btn.style.bottom = 0;
+				}
+				break;
+			//向左
+			case 37:
+//			adddiv()
+				if(x<= 0){
+					btn.style.left = 0;
+					x = 0;
+					break;
+				}
+				x -= speed;
+				btn.style.left = x + "px";
+				btn.style.transform = "rotateZ(-90deg) ";
+				break;
+			//向右
+			case 39:
+//			adddiv()
+					if(x>= x2 * 2-44){
+						btn.style.left = x2 * 2 -44 +"px";
+						x = x2 * 2 -44;
+						break;
+					}
+				x += speed;
+				btn.style.left = x + "px";
+				btn.style.transform = "rotateZ(90deg)";
+				break;
+			
+			case 32:
+//				alert("空格");
+				adddiv();
+				
+				
+				break;
+			}
+		}
+			
+			function adddiv(){
+				var shot = document.createElement('div');
+//				console.log(shot);
+				shot.classList.add('pot');
+//				var div = '<div></div>';
+
+//				shot.setAttribute('style','position:absolute;width:44px;height:44px;left:'+ style.left+';top:'+ style.top+';background:red;');
+//				shot.style.position = 'absolute';
+				shot.style.left = parseInt(style.left)-3+"px";
+				shot.style.top = parseInt(style.top)-3+"px";
+				shot.style.width = 50+"px";
+				shot.style.height = 50+"px";
+				shot.style.background = "red";
+			
+				
+				
+				box.appendChild(shot)
+			}
+		</script>
+	</body>
+</html>

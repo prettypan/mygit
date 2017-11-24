@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			body{
+				text-align: center;
+				padding-top: 100px;
+			}
+			#canvas{
+				background: #666;
+			}
+		</style>
+	</head>
+	<body onload="draw1()">
+		<canvas id="canvas" width="500" height="500"></canvas>
+		<script type="text/javascript">
+			//绘制圆
+//			function draw() {
+//			  var canvas = document.getElementById('myCanvas');
+//			  if (canvas.getContext){
+//			    var ctx = canvas.getContext('2d');
+//			
+//			    for(var i=0;i<4;i++){
+//			      for(var j=0;j<3;j++){
+//			        ctx.beginPath();
+//			        var x              = 25+j*50;               // x 坐标值
+//			        var y              = 25+i*50;               // y 坐标值
+//			        var radius         = 20;                    // 圆弧半径
+//			        var startAngle     = 0;                     // 开始点
+//			        var endAngle       = Math.PI+(Math.PI*j)/2; // 结束点
+//			        var anticlockwise  = i%2==0 ? false : true; // 顺时针或逆时针
+//			
+//			        ctx.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+//			
+//			        if (i>1){
+//			          ctx.fill();
+//			        } else {
+//			          ctx.stroke();
+//			        }
+//			      }
+//			    }
+//			  }
+//			}
+			//贝塞尔曲线
+			function draw() {
+			  var canvas = document.getElementById('canvas');
+			  if (canvas.getContext) {
+			    var ctx = canvas.getContext('2d');
+			
+			    // 二次贝尔赛曲线
+//			    ctx.beginPath();
+//			    ctx.moveTo(75,25);
+//			    ctx.quadraticCurveTo(25,25,25,62.5);
+//			    ctx.quadraticCurveTo(25,100,50,100);
+//			    ctx.quadraticCurveTo(50,120,30,125);
+//			    ctx.quadraticCurveTo(60,120,65,100);
+//			    ctx.quadraticCurveTo(125,100,125,62.5);
+//			    ctx.quadraticCurveTo(125,25,75,25);
+//			    ctx.stroke();
+			    
+			    //三次贝塞尔曲线
+			    ctx.beginPath();
+//			    ctx.moveTo(75,40);
+			    ctx.bezierCurveTo(75,37,70,25,50,25);
+//			    ctx.bezierCurveTo(20,25,20,62.5,20,62.5);
+//			    ctx.bezierCurveTo(20,80,40,102,75,120);
+//			    ctx.bezierCurveTo(110,102,130,80,130,62.5);
+//			    ctx.bezierCurveTo(130,62.5,130,25,100,25);
+//			    ctx.bezierCurveTo(85,25,75,37,75,40);
+			    ctx.fill();
+			  }
+			}
+			function draw1() {
+  var ctx = document.getElementById('canvas').getContext('2d');
+  for (var i=0;i<8;i++){
+    for (var j=0;j<8;j++){
+      ctx.fillStyle = 'rgb(' + Math.floor(255-31.875*i) + ',' + 
+                       Math.floor(255-31.875*j) + ',0)';
+      ctx.fillRect(j*25,i*25,25,25);
+    }
+  }
+}
+		</script>
+	</body>
+</html>

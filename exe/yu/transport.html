@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,maximum-scale=1, minimum-scale=1, user-scalable=no">
+		<title>配送到店</title>
+		<style>
+			*{
+				padding: 0;
+				margin:0;
+				box-sizing: border-box;
+			}
+			html{
+				font-size: 42.5px;
+			}
+			@media only screen and (max-width: 1025px){ html{font-size: 40px;}}
+			@media only screen and (max-width: 769px){ html{font-size: 25px;}}
+			@media only screen and (max-width: 415px){ html{font-size: 23px;}}
+			@media only screen and (max-width: 376px){ html{font-size: 20px;}}
+			
+			.container{
+				padding: 0.9639rem;
+			}
+			
+			/*图的容器*/
+			#classify{
+				width: 9.3588rem;
+				height:5.3216rem;
+				margin:0.5339rem auto;
+				position: relative;
+				background: url(img/base.png) center center no-repeat;
+				background-size: 100% 5.3216rem;	
+			}
+			.part{
+				position: absolute;
+			}
+			.part img{
+				height: 100%;
+				position: absolute;
+			}
+			.tip{
+				position: absolute;
+				z-index: 999;
+				display: none;
+			}
+			.block{
+				display: block !important;
+			}
+			
+				/*猪头肉*/
+				.part0{
+					width: 1.836rem;
+					height: 2.5797rem;
+					top: 0.5579rem;
+					left: 0;
+				}
+				/*猪颈*/
+				.part1{
+					width: 0.6839rem;
+					height: 1.4518rem;
+					top: 1.6858rem;
+					left: 1.8358rem;
+				}
+				.part1 img{
+					top: -0.13rem;
+					left: -0.02rem;
+    				height: 1.54rem;
+				}
+				.tip1{
+					width: 1.002rem;
+					height: 1.506rem;
+					left: -0.138rem;
+					top: 0.7rem;
+					background: url(img/tip1.png) center center no-repeat;
+					background-size: 1.002rem 1.506rem;
+				}
+				/*梅花肉*/
+				.part2{
+					width: 2.2977rem;
+					height: 1.1998rem;
+					top: 0.1620rem;
+					left: 1.9377rem;
+				}
+				.part2 img{
+					width: 2.25rem;
+				    height: 1.23rem;
+				    top: 0.04rem;
+				    left: 0.04rem;
+				}
+				/*前腿肉*/
+				.part3{
+					width: 1.7278rem;
+					height: 1.6738rem;
+					top: 1.4518rem;
+					left: 2.5137rem;
+				}
+				.part3 img{
+					width: 1.9977rem;
+					height: 2.2257rem;
+					top: -0.528rem;
+	    			left: -0.18rem;
+				}
+				/*大里脊*/
+				.part4{
+					width: 3.3836rem;
+					height: 0.7979rem;
+					top: 0rem;
+	    			left: 3.9895rem;
+				}
+				.part4 img{
+					width: 3.3836rem;
+					height: 1.0619rem;
+					top: -0.04rem;
+				}
+				/*小里脊*/
+				.part5{
+					width: 1.5838rem;
+					height: 0.8699rem;
+					top: 0.8159rem;
+	    			left: 5.7293rem;
+	    			z-index: 2;
+				}
+				.part5 img{
+					width: 1.5838rem;
+					height: 0.8699rem;
+				}
+				.tip5{
+					width: 1.2298rem;
+					height: 1.9618rem;
+					left: 0.262rem;
+	    			top: -1.4rem;
+					background: url(img/tip5.png) center center no-repeat;
+					background-size: 1.2298rem 1.9618rem;
+				}
+				/*五花肉*/
+				.part6{
+					width: 3.096rem;
+					height: 2.3037rem;
+					top: 0.8159rem;
+	    			left: 4.2415rem;
+	    		}
+				.part6 img{
+					width: 3.096rem;
+					height: 2.3037rem;
+				}
+				/*后腿肉*/
+				.part7{
+					width: 1.9858rem;
+					height: 2.844rem;
+					top: 0;
+	    			right: 0;
+	    		}
+				.part7 img{
+					width: 2.076rem;
+					height: 2.838rem;
+					left: -0.1rem;
+				}
+				
+			
+			/*图到此结束,数据表格由此开始*/
+			.chart{
+				width: 89.14%;
+				
+				margin:1.3678rem auto;
+				padding: 0.6135rem;
+				box-shadow:0 0 30px 0 #dedede;
+			}
+			.chart table{
+				width: 100%;
+				border-collapse: collapse;
+			}
+			
+			.title{
+				width: 42%;
+				font-size: 0.65rem;
+				font-weight: 500;
+				color: #898989;
+				padding-left: 0.5rem;
+				white-space: nowrap;
+				border-top: 0.0240rem solid #dbdbdb;
+				border-right: 0.0240rem solid #dbdbdb;
+			}
+			.msg{
+				font-family: "微软雅黑","times new roman";
+				font-size: 0.6rem;
+				color: #888;
+				font-weight: 200;
+				border-top: 0.0240rem solid #dbdbdb;
+				padding: 0.3rem;
+			}
+			.header{
+				height: 2.5137rem;
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				justify-content: space-around;
+			}
+			.location{
+				height: 1.6558rem;
+			}
+			.permissionNo{
+				height: 1.5058rem;
+			}
+			
+			.header p{
+				font-family: "微软雅黑";
+				font-size: 0.7rem;
+				font-weight: 900;
+				color: #898989;
+			}
+			.header span{
+				font-weight: 200;
+			}
+			.headPic{
+				display: inline-flex;
+				width: 2.0337rem;
+				height: 2.0337rem;
+				background:url(img/headerPic.png) center center no-repeat;
+				background-size: 2.0337rem 2.0337rem;
+			}
+			.cook .msg{
+				font-size: 0.6rem;
+				line-height: 0.8rem;
+			}
+			
+			
+			/*了解更多按钮*/
+			.more{
+				width: 4.277rem;
+				height: 1.296rem;
+				margin: 1.9318rem auto 0.3419rem;
+				border: 0.036rem solid #ff2d00;
+				border-radius: 1rem;
+				font-size: 0.528rem;
+				color:#ff2d00;
+				text-align: center;
+				letter-spacing: 0.1799rem;
+				line-height: 1.296rem;
+			}
+			.more:active{
+				background:#ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div id="classify">
+				<div class="part part0" data-id = "0"></div>
+				<div class="part part1" data-id = "1">
+					<div class="tip tip1"></div>
+				</div>
+				<div class="part part2" data-id = "2"></div>
+				<div class="part part3" data-id = "3">
+					<img src="img/part3.png" />
+				</div>
+				<div class="part part4" data-id = "4"></div>
+				<div class="part part5" data-id = "5">
+					<div class="tip tip5"></div>
+				</div>
+				<div class="part part6" data-id = "6"></div>
+				<div class="part part7" data-id = "7"></div>
+			</div>
+			
+			<div class="dataMsg">
+				<div class="chart">
+					<table border="0">
+						<tr>
+							<td colspan="2"> 
+								<div class="header" id="partName">
+									<div class="headPic"></div>
+									<p>产品名称：<span>钱食·前腿肉</span></p>
+								</div>
+							</td>
+						</tr>
+						<tr class="cook">
+							<td class="title">烹饪知识</td>
+							<td class="msg" id="cookKnowledge">将肉切成丝，用料酒、鸡蛋、淀粉和食用油腌制10分钟；大葱切成丝，摆在盘底备用；锅中放入适量油烧热，放入蒜姜丝，五香粉爆香；放入腌好的肉丝，肉丝变色后，放入2大勺甜面酱，继续煸炒；放入2勺白糖和适量鸡精即可出锅。</td>
+						</tr>
+						<tr class="location">
+							<td class="title">产地</td>
+							<td class="msg">大理</td>
+						</tr>
+						<tr class="permissionNo">
+							<td class="title">生产许可证编号</td>
+							<td class="msg">滇011366</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="more">
+				了解更多
+			</div>
+		</div>
+		
+		
+		<script src="js/jquery.min.js"></script>
+		<script>
+			$(function(){
+				$('.part').each(function(){
+					$(this).on('click',function(){
+						var m=$(this).attr('data-id');
+						$(this).append('<img src="img/part'+m+'.png" />').siblings().find('img').remove();
+						$(this).siblings().find('.tip').removeClass('block');
+						if(m==1||m==5){
+							$(this).find('.tip').addClass('block');
+						}
+						
+						$.ajax({
+							url:"cook.json",
+							dataType:"json",
+							success:function(data){
+								$('#partName').find('span').text(data.cookChart[m].partName);
+								$('#cookKnowledge').text(data.cookChart[m].cookKnowledge);
+							}
+						})
+					})
+				})
+			})
+		</script>
+	</body>
+</html>

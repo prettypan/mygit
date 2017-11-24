@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+	</head>
+	<body>
+		<div id="countdown"></div>
+		<script src="jquery-1.11.3.js"></script>
+		<script>
+			gettime()
+			setInterval(function() {
+				gettime()
+			}, 1000);
+			
+//			function getDate(tm){ 
+//			var tt=new Date(parseInt(tm)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ") 
+//			return tt; 
+//} 
+			function gettime() {
+				var t1 = new Date().getTime();
+//				console.log();
+				document.close()
+				document.write(new Date(t1).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " "))
+				
+				var tdate = new Date('2017/04/18 15:00:00');
+
+				var t2 = tdate.getTime();
+				if (t2 > t1) {
+					var t = parseInt((t2 - t1) / 1000);
+
+					var day = parseInt(t / (60 * 60 * 24));
+					var hours = parseInt(t / (60 * 60)) - day * 24;
+					var minutes = parseInt(t / (60)) - day * 24 * 60 - hours * 60;
+					var seconds = parseInt(t) - day * 24 * 60 * 60 - hours * 60 * 60 - minutes * 60;
+					if (day <= 0) {
+						if (hours <= 0){
+							if	(minutes <= 0){
+								$('#countdown').html("距离直播开始还剩：" + seconds + "秒")
+							}else {
+								$('#countdown').html("距离直播开始还剩：" + minutes + "分钟" + seconds + "秒")
+							}
+						}else {
+							$('#countdown').html("距离直播开始还剩：" + hours + "小时" + minutes + "分钟" + seconds + "秒")
+						}
+					}else {
+						$('#countdown').html("距离直播开始还剩：" + day + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒")
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

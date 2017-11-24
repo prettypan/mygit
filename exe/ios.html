@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+//			var arr = "2016/11/11 11:11:11".split(/[- : \/]/),
+//			date = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+//			document.write(date);
+						var reg=new RegExp("-","g");
+						var str = '2017-04-20';
+						var dat = str.substring(0,10).replace(reg,"/");
+						
+						
+						var sdate = new Date(dat);
+						var edate = new Date();
+						
+						
+						var stime = sdate.getTime()/1000;
+						var etime = edate.getTime()/1000;
+						
+						var start = parseInt((etime - stime)/ 60 / 60 / 24);
+						alert(start)
+
+//		 function  DateDiff(sDate1,  sDate2){    //sDate1和sDate2是2006-12-18格式  
+//	       var  aDate,  oDate1,  oDate2,  iDays  
+//	       aDate  =  sDate1.split("-")  
+//	       oDate1  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0])    //转换为12-18-2006格式  
+//	       aDate  =  sDate2.split("-")  
+//	       oDate2  =  new  Date(aDate[1]  +  '-'  +  aDate[2]  +  '-'  +  aDate[0])  
+//	       iDays  =  parseInt(Math.abs(oDate1  -  oDate2)  /  1000  /  60  /  60  /24)    //把相差的毫秒数转换为天数  
+//	       return  iDays  
+//	   }
+//		 
+//		 alert(DateDiff('2017-04-25','2017-04-27'))
+		</script>
+	</body>
+
+</html>

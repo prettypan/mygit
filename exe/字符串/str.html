@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div></div>
+		<script type="text/javascript">
+			var str = "dddd.html?userid=0&usermember=dd&tel=123"
+			var user = str.split('?')[1];
+			user = user.split('&');
+			console.log(user)
+			userid = user[0].split('=')[1];
+			usermember = user[1].split('=')[1];
+			tel = user[2].split('=')[1];
+			console.log(userid);
+			console.log(usermember)
+			console.log(tel)
+		</script>
+	</body>
+</html>

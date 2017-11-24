@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				box-sizing: border-box;
+			}
+			
+			html,
+			body,
+			#box {
+				height: 100%;
+				width: 100%;
+				overflow: hidden;
+			}
+			
+			#box {
+				/*background: url(bg.jpg) no-repeat;
+				background-size: cover;*/
+				/*perspective: 1000px;*/
+				/*transform: rotateY(30deg);*/
+				/*border: 50px solid #482779;*/
+				position: relative;
+				cursor: pointer;
+			}
+			
+			#btn {
+				width: 44px;
+				height: 44px;
+				/*48px;*/
+				background: url(tt.png) no-repeat;
+				background-size: cover;
+				position: absolute;
+				top: 0;
+				left: 0;
+				/*transform-origin: 50% 50%;*/
+				/*transition:rotateZ 1s linear;*/
+				/*-webkit-transition:rotateZ 1s linear;*/
+				/*opacity: 1;*/
+			}
+			#btn2{
+				background-color: blue;
+				color: blue;
+			}
+			#btn3{
+				background-color: green;
+				color: green;
+			}
+			#btn4{
+				background-color: yellow;
+				color: yellow;
+			}
+			#btn5{
+				background-color: orange;
+				color: orange;
+			}
+			#btn6{
+				background-color: black;
+				color: black;
+			}
+			#btn7{
+				background-color: red;
+				color: red;
+			}
+			
+			.pot {
+				position: absolute;
+				border-radius: 50%;
+				z-index: -1;
+				opacity: 0.8;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="menu">
+			<button id="btn0">变细</button>
+		<button id="btn1">加粗</button>
+		<button id="btn2">蓝色</button>
+		<button id="btn3">绿色</button>
+		<button id="btn4">黄色</button>
+		<button id="btn5">橙色</button>
+		<button id="btn6">黑色</button>
+		<button id="btn7">红色</button><br />
+		</div>
+		<div id="box">
+			<!--<div id="btn">
+
+			</div>-->
+			
+			
+		</div>
+
+		<script>
+			var btn1 = document.getElementById('btn1');
+			var btn2 = document.getElementById('btn2');
+			var box = document.getElementById('box');
+			var color = "red";
+			var line = 20;
+			
+			btn0.onmousedown = function(event){
+				event.stopPropagation();
+//				alert(1);
+				line -= 5;
+			}
+			btn1.onmousedown = function(event){
+				event.stopPropagation();
+//				alert(1);
+				line += 5;
+			}
+			
+			btn2.onmousedown = function(event){
+				event.stopPropagation();
+				color = "blue";
+			}
+			
+			btn3.onmousedown = function(event){
+				event.stopPropagation();
+				color = "green";
+			}
+			
+			btn4.onmousedown = function(event){
+				event.stopPropagation();
+				color = "yellow";
+			}
+			btn5.onmousedown = function(event){
+				event.stopPropagation();
+				color = "orange";
+			}
+			btn6.onmousedown = function(event){
+				event.stopPropagation();
+				color = "black";
+			}
+			btn7.onmousedown = function(event){
+				event.stopPropagation();
+				color = "red";
+			}
+			
+			box.onmousedown = function(event) {
+				
+				event = event || window.event;
+				adddiv(color,line)
+
+				document.onmousemove = function(event) {
+					event = event || window.event;
+					adddiv(color,line)
+				}
+			}
+			document.onmouseup = function(){
+				//清除mousemove事件
+				document.onmousemove = null;
+			}
+
+			function adddiv(color,line) {
+				var menuHeight = document.getElementById('menu');
+//				console.log(menuHeight)
+				var x=line;
+				var X = event.pageX;
+				var Y = event.pageY
+//				console.log(X);
+//				console.log(Y);
+				var shot = document.createElement('div');
+				shot.classList.add('pot');
+				//				var div = '<div></div>';
+
+				//				shot.setAttribute('style','position:absolute;width:44px;height:44px;left:'+ style.left+';top:'+ style.top+';background:red;');
+				//				shot.style.position = 'absolute';
+				shot.style.left = parseInt(X) - x/2 + "px";
+				shot.style.top = parseInt(Y) -x/2 -23 + "px";
+				shot.style.width = x + "px";
+				shot.style.height = x + "px";
+				shot.style.background = color;
+				box.appendChild(shot);
+
+				box.appendChild(shot)
+			}
+		</script>
+	</body>
+
+</html>

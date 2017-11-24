@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>绘图</title>
+		<style type="text/css">
+			body{
+				background: black;
+			}
+			#c1{
+				background: white;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var oC = document.getElementById('c1');
+				
+				var oGC = oC.getContext('2d');
+				oGC.fillStyle='red'
+				
+				oGC.fillRect(50,50,100,100)
+//				oGC.strokeRect(50.5,50.5,100,100)
+			}
+			
+		</script>
+	</head>
+	<body>
+		<canvas id="c1" width="400" height="400"></canvas>
+	</body>
+</html>

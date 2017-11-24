@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script>
+		var model = {
+			toLeft: function() {
+				var animation = wx.createAnimation({
+					duration: 1000,
+					timingFunction: 'ease',
+				})
+				this.animation = animation;
+				var x = this.data.leftPosition;
+				x = (x + 100) > 0 ? 0 : (x + 100);
+				if(x == 0) {
+					this.data.left = false;
+				}
+				animation.left(x + "%").step()
+				this.setData({
+					animationData: this.animation.export(),
+					left: this.data.left,
+					leftPosition: x
+				})
+			},
+			toRight: function() {
+				var animation = wx.createAnimation({
+					duration: 1000,
+					timingFunction: 'ease',
+				})
+				this.animation = animation;
+
+				var x = this.data.leftPosition;
+				x = (x - 100) < -200 ? -200 : (x - 100);
+				if(x == -200) {
+					this.data.left = false;
+				}
+
+				animation.left(x + "%").step()
+				this.setData({
+					animationData: this.animation.export(),
+					left: this.data.left,
+					leftPosition: x
+				})
+			},
+
+			moveStart: function(e) {
+				this.setData({
+					startX: e.changedTouches[0].clientX,
+					startY: e.changedTouches[0].clientY
+				})
+			},
+
+			moving: function(e) {
+				var x = e.changedTouches[0].clientX;
+				var y = e.changedTouches[0].clientY;
+				var deltaX = x - this.data.startX;
+				var k = (y - this.data.startY) / deltaX;
+				if(k > -1 && k < 1) {
+					if(deltaX > 0) {
+						this.toLeft()
+					} else if(deltaX < 0) {
+						this.toRight()
+					}
+				}
+			},
+		}
+	</script>
+
+</html>

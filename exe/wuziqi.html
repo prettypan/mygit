@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>五子棋</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			
+			.box {
+				display: -webkit-flex;
+				display: flex;
+				list-style: none;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				background: #652f2f;
+			}
+			
+			li {
+				background: #a2491e;
+				height: 1.1rem;
+				width: 1.1rem;
+				border-radius: 50%;
+			}
+			
+			.white {
+				background: white;
+			}
+			
+			.black {
+				background: black;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="box"></div>
+	</body>
+	<script>
+		function setRem() {
+			var oHtml = document.querySelector('html');
+			var width = oHtml.getBoundingClientRect().width;
+			if(width > 680) width = 680;
+			oHtml.style.fontSize = width / 16 + 'px';
+		}
+		window.onload = function() {
+			setRem();
+		}
+	</script>
+	<script>
+		var n1 = 0,
+			n2 = 0,
+			n3 = 0,
+			n4 = 0,
+			row = 25,
+			col = 14;
+		var box = document.getElementById('box');
+		for(var n = 0; n < row; n++) {
+			var ul = document.createElement('ul');
+			ul.setAttribute('Row', n + 1);
+			ul.classList.add('box');
+			for(var i = 0; i < col; i++) {
+				var li = document.createElement('li');
+				li.setAttribute('state', '0');
+				li.setAttribute('code', i + 1);
+				ul.appendChild(li)
+			}
+			box.appendChild(ul)
+		}
+
+		var sq = document.querySelectorAll('li');
+		for(var m = 0; m < sq.length; m++) {
+			sq[m].addEventListener("touchstart", function() {
+				if(this.getAttribute('state') == 0) {
+					var t = 0;
+					for(var m = 0; m < sq.length; m++) {
+						if(sq[m].getAttribute('state') == 0) {
+							t++;
+						}
+					}
+					if(t % 2 == 0) {
+						this.setAttribute('state', '1');
+						this.classList.add('white');
+						var code = this.getAttribute('code');
+						console.log(code)
+						var bg = this.getAttribute('state');
+						console.log(bg)
+						checkwin()
+						
+					} else {
+						this.setAttribute('state', '2');
+
+						this.classList.add('black');
+					}
+
+					if(bg == 2) {
+						for(var i = code; i >= 0; i--) {
+							if(sq[i].getAttribute('state') != bg) {
+								break;
+							}
+							n2++;
+						}
+					}
+
+				}
+				function checkwin(){
+					for(var i = code; i <= col; i++) {//向右五连珠
+							console.log(sq[i].getAttribute('state'));
+//							var n1 = 0;
+							if(sq[i].getAttribute('state') == bg) {
+								n1++;
+								console.log(n1);
+								if(n1 >= 5) {
+									this.setAttribute('state', '1');
+									this.classList.add('white');
+									setTimeout(function(){
+										alert("白方获胜");
+									},100)
+									return
+								}else{
+									break;
+								}
+								
+							}
+							
+						}
+						for(var i = code; i >0; i++) {//向左五连珠
+							console.log(sq[i].getAttribute('state'));
+//							var n1 = 0;
+							if(sq[i].getAttribute('state') == bg) {
+								n1++;
+								console.log(n1);
+								if(n1 >= 5) {
+									setTimeout(function(){
+										alert("白方获胜");
+									},100)
+									return
+								}else{
+									break;
+								}
+								
+							}
+							
+						}
+						
+						for(var i = code; i >0; i= i-col) {//向上五连珠
+							console.log(sq[i].getAttribute('state'));
+//							var n1 = 0;
+							if(sq[i].getAttribute('state') == bg) {
+								n1++;
+								console.log(n1);
+								if(n1 >= 5) {
+									setTimeout(function(){
+										alert("白方获胜");
+									},100)
+									return
+								}else{
+									break;
+								}
+								
+							}
+							
+						}
+						
+						for(var i = code; i >0; i= i-col) {//向下五连珠
+							console.log(sq[i].getAttribute('state'));
+//							var n1 = 0;
+							if(sq[i].getAttribute('state') == bg) {
+								n1++;
+								console.log(n1);
+								if(n1 >= 5) {
+									setTimeout(function(){
+										alert("白方获胜");
+									},100)
+									return
+								}else{
+									break;
+								}
+								
+							}
+							
+						}
+						
+						for(var i = code; i >0; i= i-col) {//向左五连珠
+							console.log(sq[i].getAttribute('state'));
+//							var n1 = 0;
+							if(sq[i].getAttribute('state') == bg) {
+								n1++;
+								console.log(n1);
+								if(n1 >= 5) {
+									setTimeout(function(){
+										alert("白方获胜");
+									},100)
+									return
+								}else{
+									break;
+								}
+								
+							}
+							
+						}
+				}
+			})
+		}
+	</script>
+
+</html>

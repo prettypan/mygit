@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<p style="background: red;"></p>
+		<span id="">
+			我是大表哥
+		</span>
+		<script src="jquery-1.11.3.js"></script>
+		<script>
+			gettime()
+			setInterval(function() {
+				gettime()
+			}, 1000);
+			
+			
+			function gettime(){
+				var t1 = new Date().getTime();
+
+			var tdate = new Date('2017-04-18 15:00:00');
+
+			var t2 = tdate.getTime();
+
+			var t = parseInt((t2 - t1) / 1000);
+
+			var day = parseInt(t / (60 * 60 * 24));
+			var hours = parseInt(t / (60 * 60)) - day * 24;
+			var minutes = parseInt(t / (60)) - day * 24 * 60 - hours * 60;
+			var seconds = parseInt(t) - day * 24 * 60 * 60 - hours * 60 * 60 - minutes * 60;
+			$('p').html(day + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒")
+			}
+		</script>
+	</body>
+
+</html>

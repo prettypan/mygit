@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.img_box {
+				width: 400px;
+				height: 300px;
+				margin: 0 auto;
+				/*overflow: hidden;*/
+			}
+			
+			.list {
+				position: relative;
+			}
+			
+			.list,
+			li {
+				width: 100%;
+				height: 100%;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			
+			li {
+				background-position: center;
+				background-size: 150% 150%;
+				position: absolute;
+				left: 0;
+				right: 0;
+			}
+			/*img{
+				width: 100%;
+			}*/
+		</style>
+	</head>
+
+	<body>
+		<div class="img_box">
+			<ul class="list">
+				<li style="background-image: url(img/yang.jpg);"></li>
+				<li style="background-image: url(img/yang2.jpg);"></li>
+				<li style="background-image: url(img/yang3.jpg);"></li>
+			</ul>
+		</div>
+		<script src="jquery-1.11.3.js"></script>
+		<script type="text/javascript">
+			var banner = {
+				$index: 0,
+				lunbo: function(el, attr, tovalue) {
+					//获取元素的初始位置
+					var current = parseInt(getStyle(el, attr));
+					//如果attr是opacity的话，获取的样式值，不能用parseInt
+					if(attr == "opacity") {
+						current = parseFloat(getStyle(el, attr));
+						if(current <= 1) {
+							current = current * 100;
+						}
+					}
+
+					clearInterval(el.t1);
+					el.t1 = setInterval(function() {
+						//定义速度
+						var speed = (tovalue - current) / 200;
+						speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+						//console.log(speed);
+						//当到达目标时，清除定时器
+						if(current == tovalue) {
+							clearInterval(el.t1);
+						} else {
+							//让left每10毫秒移动一定的像素
+							current += speed;
+							el.style[attr] = current + "px";
+							if(attr == "opacity") {
+								el.style.opacity = current / 100;
+								el.style.filter = "alpha(opacity=" + current + ")";
+							}
+						}
+					}, 10)
+				}
+			}
+			setInterval(banner.lunbo(), 1000);
+
+			function getStyle(obj, name) {
+				var value = 0;
+				//兼容常规浏览器
+				if(window.getComputedStyle) {
+					//alert(window.getComputedStyle(obj )[name]);
+					value = window.getComputedStyle(obj)[name];
+				} else {
+					//IE8及以下浏览器
+					value = obj.currentStyle[name];
+
+					/*if(name == "opacity" && isNaN(value)){
+						value = obj.currentStyle.filter;
+					}*/
+				}
+
+				if(isNaN(parseInt(value))) {
+					value = 0;
+				}
+				return value;
+			}
+		</script>
+	</body>
+
+</html>

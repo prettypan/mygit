@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+	</head>
+
+	<body onbeforeunload="sss()">
+		<textarea id="aa" name="aa" rows="" cols=""></textarea>
+		 <p>这个夏天我和父亲去了欧洲旅游。</p>
+		<aside>
+			<h4>欧洲介绍</h4>
+			 欧洲，，是是是Bla。。。
+		</aside>
+		<script src="jquery-1.11.3.js"></script>
+		<script type="text/javascript">
+			var http = "http://192.168.0.219:9001/wwwroot";
+			var page = 1;pagesize = 8,type = 'ask';
+//			var aa = document.getElementById("aa")
+//			console.log(aa.value)
+//			var  s=function(){
+//				var arr = [1, 2, 3]
+//				for(var i = 0; i < arr.length; i++) {
+//					if(i == 1) {
+////						var t = arr[1];
+//						return arr[1];
+//						break;
+//					}else if(i){
+//						console.log(555);
+//					}
+//				}
+//			}()
+//			console.log(s)
+//		alert(localStorage.pag)
+		function sss(){
+			var myDate = new Date();
+			localStorage.pag = myDate
+			var queryAjax = $.ajax({
+		type: 'post',
+		url: ""+ http+"/meiba/vzapi/forum_querylist.php",
+		async: false,
+//		timeout: 5000,
+		data: {
+			page: page,
+			pagesize: pagesize,
+			type: type,
+			sss:myDate
+		},
+		dataType: "json",
+		success: function(data) {
+			
+		},
+		complete: function(XMLHttpRequest, status) {
+			if(status == 'timeout') {
+				queryAjax.abort();
+			} else if(status == 'error') {
+
+			}
+		}
+	});
+		}
+//			window.addEventListener("popstate", function(e) {  
+//			
+//			    alert("我监听到了浏览器的返回按钮事件啦");//根据自己的需求实现自己的功能  
+//			
+//			   }, false);  
+		</script>
+	</body>
+
+</html>
