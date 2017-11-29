@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset=utf-8>
+	<meta name=description content="">
+	<meta name=viewport content="width=device-width, initial-scale=no">
+	
+	<script>
+		function setRem() {
+			var oHtml = document.querySelector('html');
+			var width = oHtml.getBoundingClientRect().width;
+//			if(width > 680) width = 680;
+			oHtml.style.fontSize = width / 80 + 'px';
+		}
+		window.onload = function() {
+				setRem();
+			}
+			//23.4375px等于1rem;
+		
+	</script>
+	<style>
+		*{
+			margin: 0;
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+		}
+		body{
+			background: #555;
+		}
+		.box{
+			
+			margin: 0 auto;
+			width: 100%/* 49rem*/;
+			height: 100%/*33.45rem*/;
+			/*margin-top: 100px;*/
+			overflow: hidden;
+			position: relative;
+		}
+		.testBox{
+			transform: rotate(41deg);
+			position: absolute;
+			top: -120%;
+			left: -56%;
+		}
+		.test1{
+		    width: 0;
+		    height: 0;
+		    border-right: 2000px solid transparent;
+		    border-bottom: 2000px solid #37a6c8;
+		    border-left: 2000px solid transparent;
+		}
+		.test2{
+		    width: 0;
+		    height: 0;
+		    border-top: 2000px solid transparent;
+		    border-bottom: 2000px solid transparent;
+		    border-left: 2000px solid orange;
+		}
+		.test3{
+		    width: 0;
+		    height: 0;
+		    border-top: 2000px solid #fff;
+		    border-right: 2000px solid transparent;
+		    border-left: 2000px solid transparent;
+		}
+		.test4{
+		    width: 0;
+		    height: 0;
+		    border-top: 2000px solid transparent;
+		    border-right: 2000px solid red;
+		    border-bottom: 2000px solid transparent;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<div class="testBox">
+			<div class="test1"></div>
+			<div class="test3"></div>
+		</div>
+	</div>
+	<script src="../jquery-1.11.3.js"></script>
+	<script>
+		$(window).resize(function () {          //当浏览器大小变化时
+		    setRem();
+		});
+	</script>
+</body>
+</html>
